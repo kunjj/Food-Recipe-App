@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         this.binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(this.binding?.root)
         checkIfUserIsSignedIn()
-        this.binding!!.signInButton.setOnClickListener {
+        this.binding!!.googleSignInButton.setOnClickListener {
             performSignIn()
         }
     }

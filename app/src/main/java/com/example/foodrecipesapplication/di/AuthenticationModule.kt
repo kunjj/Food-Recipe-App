@@ -1,6 +1,5 @@
 package com.example.foodrecipesapplication.di
 
-
 import androidx.credentials.GetCredentialRequest
 import com.example.foodrecipesapplication.utils.Constant.SERVER_CLIENT_ID
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption

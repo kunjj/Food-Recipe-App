@@ -15,6 +15,11 @@ import com.example.foodrecipesapplication.repositories.FoodRecipesRepository
 import com.example.foodrecipesapplication.room.entities.FavoriteRecipe
 import com.example.foodrecipesapplication.room.entities.FoodJokeEntity
 import com.example.foodrecipesapplication.room.entities.FoodRecipeEntity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +34,8 @@ class FoodRecipesViewModel @Inject constructor(
     private val foodRecipesRepository: FoodRecipesRepository,
 ) : ViewModel() {
     private val networkListener: NetworkListener = NetworkListener()
+
+    var currentUser: FirebaseUser? = Firebase.auth.currentUser
 
     //Room Data Base.
     val readRecipes: LiveData<List<FoodRecipeEntity>> =

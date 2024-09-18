@@ -1,7 +1,7 @@
 package com.example.foodrecipesapplication.bindingadapters
 
+import android.net.Uri
 import android.text.Html
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -42,11 +42,22 @@ class RecipeBindingAdapter {
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
-        fun loadImageFromUrl(imageView: ImageView, url: String) {
-            if (!url.isNullOrEmpty()) {
-                imageView.load(url) {
-                    crossfade(500)
+        fun ImageView.loadImageFromUrl(url: String?) {
+            url?.let {
+                this.load(url) {
+                    crossfade(750)
                     error(R.drawable.baseline_restaurant_menu_24)
+                }
+            }
+        }
+
+        @BindingAdapter("loadImageFromUri")
+        @JvmStatic
+        fun ImageView.loadImageUri(uri: Uri?) {
+            uri?.let {
+                this.load(it) {
+                    crossfade(1000)
+                    error(R.drawable.user)
                 }
             }
         }

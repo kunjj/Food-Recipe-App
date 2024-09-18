@@ -54,4 +54,8 @@
     <string name="sign_in_with_facebook">Sign In With Facebook</string>
     <string name="personalized_recipe_discovery">Personalized recipe discovery</string>
     <string name="tell_us_your_food_preferences_and_we_ll_only_serve_you_delicious_rec_pes_ideas">Tell us your food preferences and we\'ll only serve you delicious recípes ideas</string>
+    <string name="logout">Logout</string>
+    <string name="test_user">Test User</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
 </resources>

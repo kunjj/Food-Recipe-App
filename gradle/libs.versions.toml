@@ -6,6 +6,7 @@ constraintlayout = "2.1.4"
 converterGson = "2.9.0"
 coreKtx = "1.13.1"
 credentials = "1.2.2"
+drawerlayout = "1.2.0"
 facebookLogin = "15.0.2"
 firebaseBom = "33.2.0"
 hiltCompiler = "2.50"
@@ -38,6 +39,7 @@ androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayo
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
 androidx-credentials-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
+androidx-drawerlayout = { module = "androidx.drawerlayout:drawerlayout", version.ref = "drawerlayout" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }

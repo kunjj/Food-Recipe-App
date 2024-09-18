@@ -60,6 +60,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //Drawer Dependency.
+    implementation(libs.androidx.drawerlayout)
+
     //Live Data Dependency.
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
@@ -98,12 +101,15 @@ dependencies {
     //Bubble Tabbar Navigation Dependency.
     implementation(libs.bubbletabbar)
 
+    //View Pager Dependencies.
     implementation(libs.androidx.viewpager2)
 
+    //Firebase Authentication Dependencies.
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
 
+    //Google Authentication Dependencies.
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)

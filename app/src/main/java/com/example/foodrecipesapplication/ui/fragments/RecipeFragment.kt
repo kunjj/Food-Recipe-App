@@ -1,30 +1,41 @@
 package com.example.foodrecipesapplication.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.example.foodrecipesapplication.R
 import com.example.foodrecipesapplication.adapters.FoodRecipeAdapter
+import com.example.foodrecipesapplication.databinding.DrawerHeaderBinding
 import com.example.foodrecipesapplication.databinding.FragmentRecipeBinding
 import com.example.foodrecipesapplication.network.NetworkResponse
 import com.example.foodrecipesapplication.ui.activities.RecipeActivity
 import com.example.foodrecipesapplication.utils.observeOnce
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecipeFragment : BaseFragment(), View.OnClickListener {
+class RecipeFragment : BaseFragment(), View.OnClickListener,
+    NavigationView.OnNavigationItemSelectedListener {
     private val args by navArgs<RecipeFragmentArgs>()
     private var binding: FragmentRecipeBinding? = null
+    private var drawerBinding: DrawerHeaderBinding? = null
     private val foodRecipesViewModel by lazy { (activity as RecipeActivity).foodRecipesViewModel }
     private val recipeViewModel by lazy { (activity as RecipeActivity).recipeViewModel }
     private val foodRecipeAdapter by lazy { FoodRecipeAdapter() }
@@ -34,16 +45,18 @@ class RecipeFragment : BaseFragment(), View.OnClickListener {
     ): View {
         this.binding = FragmentRecipeBinding.inflate(inflater)
         this.binding!!.recipesViewModel = this.foodRecipesViewModel
+        this.drawerBinding = DrawerHeaderBinding.bind(this.binding!!.navigationView.getHeaderView(0))
         this.binding!!.lifecycleOwner = this
         setHasOptionsMenu(true)
         (activity as RecipeActivity).setSupportActionBar(binding!!.toolbar)
-        (activity as RecipeActivity).supportActionBar?.title = context?.getString(R.string.recipes)
+        (activity as RecipeActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
+        setUpDrawer()
         fetchDataFromDatabase()
         binding!!.btnFilterRecipe.setOnClickListener(this)
     }
@@ -52,6 +65,20 @@ class RecipeFragment : BaseFragment(), View.OnClickListener {
         adapter = this@RecipeFragment.foodRecipeAdapter
         layoutManager = LinearLayoutManager(requireActivity().applicationContext)
         showShimmerEffect()
+    }
+
+    private fun setUpDrawer() {
+        this.binding!!.navigationView.setNavigationItemSelectedListener(this)
+        val toggle = ActionBarDrawerToggle(
+            requireActivity(),
+            this.binding!!.drawerLayout,
+            this.binding!!.toolbar,
+            R.string.open_nav,
+            R.string.close_nav
+        )
+        this.binding!!.drawerLayout.addDrawerListener(toggle)
+        this.drawerBinding!!.recipesViewModel = this.foodRecipesViewModel
+        toggle.syncState()
     }
 
     private fun fetchDataFromDatabase() = lifecycleScope.launch {
@@ -169,5 +196,18 @@ class RecipeFragment : BaseFragment(), View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         this.binding = null
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.logout -> {
+                Firebase.auth.signOut()
+                startActivity(Intent(requireActivity(), RecipeActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+            }
+        }
+        this.binding!!.drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 }

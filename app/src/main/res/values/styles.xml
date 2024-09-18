@@ -44,4 +44,11 @@
         <item name="android:paddingHorizontal" tools:targetApi="o">7dp</item>
         <item name="android:paddingVertical" tools:targetApi="o">5dp</item>
     </style>
+
+    <style name="ProfileImageShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
+        <item name="borderWidth">3dp</item>
+
+    </style>
 </resources>
